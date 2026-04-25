@@ -1,6 +1,10 @@
 -- White Screen + 10 FPS Cap + Anti-AFK
 repeat task.wait() until game:IsLoaded()
 
+-- ============ FPS CAP USING SETFPSCAP ============
+setfpscap(10)
+print("✅ FPS cap set to 10 using setfpscap")
+
 local runService = game:GetService("RunService")
 local lighting = game:GetService("Lighting")
 local workspace = game:GetService("Workspace")
@@ -50,33 +54,6 @@ end
 
 antiAFK()
 print("✅ Anti-AFK active")
-
--- ============ 10 FPS CAP ============
-print("🔒 Setting FPS cap to 10...")
-
-pcall(function()
-    local UserSettings = game:GetService("UserSettings")
-    local GameSettings = UserSettings:GetService("UserGameSettings")
-    GameSettings.FrameRateLimit = 10
-end)
-
-pcall(function()
-    settings().Rendering.QualityLevel = 1
-end)
-
-local frameTime = 1 / 10
-local lastTime = tick()
-
-runService.RenderStepped:Connect(function()
-    local currentTime = tick()
-    local delta = currentTime - lastTime
-    if delta < frameTime then
-        task.wait(frameTime - delta)
-    end
-    lastTime = tick()
-end)
-
-print("✅ FPS cap set to 10")
 
 -- ============ WHITE SCREEN ============
 print("🌕 Enabling white screen mode...")
